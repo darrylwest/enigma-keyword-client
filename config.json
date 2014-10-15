@@ -1,0 +1,7 @@
+{
+    "logname":"browserify-client",
+    "appkey":"4286e9d6-53ab-11e4-9670-5ffe35539f91",
+    "port":18004,
+    "home":"./dist/",
+    "env":"production"
+}

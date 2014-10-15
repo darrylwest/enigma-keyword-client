@@ -1,0 +1,14 @@
+
+body {
+	background-color: $c-black;
+	color: $c-gray;
+	margin: 0;
+	padding: 0;
+}
+
+// hide from both screen readers and browsers
+.hide {
+    display: none !important;
+    visibility: hidden;
+}
+
