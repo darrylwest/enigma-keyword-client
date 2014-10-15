@@ -1,0 +1,33 @@
+/**
+ * challenge view
+ */
+
+#challenge-view {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: $c-black;
+	overfly-y: scroll;
+
+	.challenge-container {
+		text-align: center;
+
+		.spinner {
+			@include square( 69px );
+			margin: 100px auto 0 auto;
+			background-image: url("/assets/images/loader.png");
+			background-repeat: no-repeat;
+			display: block;
+			@include animation(spin-animation 1s infinite linear);
+		}
+
+		h5 {
+			color: $c-white;
+			margin-top: 20px;
+			font-size: 14px;
+			font-family: Arial, Helvetica;
+		}
+	}
+}
