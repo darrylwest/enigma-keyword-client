@@ -1,17 +1,17 @@
 /**
- * @class SplashViewTests
+ * @class ChallengeViewTests
  *
  * @author: darryl.west@roundpeg.com
- * @created: 10/6/14 5:06 PM
+ * @created: 10/15/14 8:29 AM
  */
 var should = require('chai').should(),
     dash = require('lodash' ),
     MockLogger = require('simple-node-logger' ).mocks.MockLogger,
     MockBrowser = require('mock-browser' ).mocks.MockBrowser,
     Browser = require('../../app/delegates/Browser' ),
-    SplashView = require('../../app/views/SplashView');
+    ChallengeView = require('../../app/views/ChallengeView');
 
-describe('SplashView', function() {
+describe('ChallengeView', function() {
     'use strict';
 
     Browser.getInstance( new MockBrowser() );
@@ -19,15 +19,15 @@ describe('SplashView', function() {
     var createOptions = function() {
         var opts = {};
 
-        opts.log = MockLogger.createLogger('SplashView');
-        opts.viewName = SplashView.VIEW_NAME;
-        opts.viewId = 'splash-view';
+        opts.log = MockLogger.createLogger('ChallengeView');
+        opts.viewName = ChallengeView.VIEW_NAME;
+        opts.viewId = 'challenge-view';
 
         return opts;
     };
 
     describe('#instance', function() {
-        var view = new SplashView( createOptions() ),
+        var view = new ChallengeView( createOptions() ),
             methods = [
                 'getElement',
                 // inherited
@@ -38,11 +38,11 @@ describe('SplashView', function() {
                 'getViewId'
             ];
 
-        it('should create an instance of SplashView', function() {
+        it('should create an instance of ChallengeView', function() {
             should.exist( view );
-            view.should.be.instanceof( SplashView );
+            view.should.be.instanceof( ChallengeView );
 
-            view.getViewName().should.equal( SplashView.VIEW_NAME );
+            view.getViewName().should.equal( ChallengeView.VIEW_NAME );
         });
 
         it('should have all known methods by size and type', function() {
@@ -54,7 +54,7 @@ describe('SplashView', function() {
     });
 
     describe('getElement', function() {
-        var view = new SplashView( createOptions() );
+        var view = new ChallengeView( createOptions() );
 
         it('should create and get the view container element', function() {
             var div = view.getElement();

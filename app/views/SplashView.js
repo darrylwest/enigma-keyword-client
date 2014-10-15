@@ -19,18 +19,17 @@ var SplashView = function(options) {
      * @returns the view container
      */
     this.getElement = function() {
-        log.info('create the splash view');
+
         var builder = browser.builder;
 
         if (!container) {
+            log.info('create the splash view');
+
             container = builder.createElement('div');
             container.id = view.getViewId();
 
-            var splash = builder.createElement('div');
-            splash.className = 'splash-container';
-
-            var spinner = builder.createElement('div');
-            spinner.className = 'spinner';
+            var splash = builder.createElement('div', 'splash-container');
+            var spinner = builder.createElement('div', 'spinner');
 
             var msg = builder.createElement('h5');
             msg.innerHTML = 'loading, please wait...';
