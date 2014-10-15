@@ -79,7 +79,6 @@ var ApplicationFactory = function(options) {
 
             opts.log = createLogger('ViewFactory');
             opts.createLogger = createLogger;
-            opts.componentBuilder = factory.createComponentBuilder();
 
             viewFactory = new ViewFactory( opts );
         }

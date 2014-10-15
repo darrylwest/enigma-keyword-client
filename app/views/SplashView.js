@@ -4,17 +4,14 @@
  * @author: darryl.west@roundpeg.com
  * @created: 10/6/14 3:42 PM
  */
-var HidableComponent = require('../components/HidableComponent' ),
-    AbstractView = require('./AbstractView');
+var AbstractView = require('./AbstractView');
 
 var SplashView = function(options) {
     'use strict';
 
     var view = this,
         log = options.log,
-        builder = options.componentBuilder,
-        container,
-        parent;
+        container;
 
     /**
      * lazy create of view container
@@ -23,6 +20,7 @@ var SplashView = function(options) {
      */
     this.getElement = function() {
         log.info('create the splash view');
+        var builder = browser.builder;
 
         if (!container) {
             container = builder.createElement('div');
@@ -50,8 +48,6 @@ var SplashView = function(options) {
     // this needs to run after getElement is defined
     AbstractView.extend( this, options );
 
-    // constructor validations
-    if (!builder) throw new Error('view constructor must include a component builder');
 };
 
 SplashView.VIEW_NAME = 'SplashView';
