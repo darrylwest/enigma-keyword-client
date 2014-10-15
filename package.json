@@ -11,7 +11,6 @@
   },
   "browser": "app.js",
   "dependencies": {
-    "brfs": "^1.2.0",
     "faye": "^1.0.3",
     "lodash": "^2.4.1",
     "mock-browser": "^0.90.23",

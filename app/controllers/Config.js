@@ -4,8 +4,7 @@
  * @author: darryl.west@roundpeg.com
  * @created: 9/11/14 7:28 PM
  */
-var fs = require('fs' ),
-    VERSION = require( '../../package.json' ).version,
+var VERSION = require( '../../package.json' ).version,
     extconfig = require('../../config.json');
 
 var Config = function(env) {
@@ -21,10 +20,10 @@ var Config = function(env) {
 
     // standard data host and data URI
     this.dataHostURL = [ loc.protocol, '//', loc.hostname, ':', loc.port ].join('');
-    this.dataURI = '/ServiceName';
+    this.dataURI = '/EnigmaService';
 
     // the standard websocket messaging host
-    this.socketClientURL = this.dataHostURL + '/message-socket';
+    this.socketClientURL = this.dataHostURL + '/enigma';
 
     // the appkey is used for x-api-key and id unique for each application
     this.appkey = extconfig.appkey;
@@ -42,10 +41,6 @@ Config.development = function() {
 
     var config = new Config();
     config.usekey = false;
-
-    // probably override the data and socket services
-    config.dataHostURL = 'http://amav3.roundpeg.com';
-    config.dataURI = '/PubManagerService';
 
     return config;
 };

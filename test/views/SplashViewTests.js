@@ -19,7 +19,6 @@ describe('SplashView', function() {
         opts.log = MockLogger.createLogger('SplashView');
         opts.viewName = SplashView.VIEW_NAME;
         opts.viewId = 'splash-view';
-        opts.componentBuilder = MockComponentBuilder.createInstance();
 
         return opts;
     };
