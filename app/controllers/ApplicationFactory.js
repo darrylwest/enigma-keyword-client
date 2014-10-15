@@ -190,6 +190,7 @@ var ApplicationFactory = function(options) {
         });
     };
 
+    // to enable inspection of original config
     this.config = options;
 };
 
@@ -215,5 +216,10 @@ ApplicationFactory.bootApplication = function(env) {
 
     return factory;
 };
+
+// make available to window for start up hook
+if (typeof window === 'object') {
+    window.ApplicationFactory = ApplicationFactory;
+}
 
 module.exports = ApplicationFactory;

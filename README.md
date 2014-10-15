@@ -1,2 +1,2 @@
-# Browserify Client Application Config
+# Enigma Keyword Client
 - - -

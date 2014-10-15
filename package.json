@@ -1,10 +1,10 @@
 {
-  "name": "browserify-app-config",
+  "name": "enigma-keyword-client",
   "version": "00.90.001",
   "main": "ApplicationFactory.js",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/roundpeg/browserify-app-config"
+    "url": "https://github.com/darrylwest/enigma-keyword-client"
   },
   "scripts": {
     "test": "gulp test"
