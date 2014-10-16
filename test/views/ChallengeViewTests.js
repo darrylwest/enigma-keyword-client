@@ -30,6 +30,7 @@ describe('ChallengeView', function() {
         var view = new ChallengeView( createOptions() ),
             methods = [
                 'getElement',
+                'bindEvents',
                 // inherited
                 'show',
                 'hide',

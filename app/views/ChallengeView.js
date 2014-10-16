@@ -35,34 +35,40 @@ var ChallengeView = function(options) {
             // create the user login input
             codeInput = builder.createElement('input', 'code-input');
             codeInput.placeholder = 'enter user code';
-            codeInput.onblur = function() {
-                view.emit( view.CODE_REQUEST, codeInput.value );
-                keyInput.classList.remove('disabled');
-            };
 
             keyInput = builder.createElement('input', 'code-input disabled');
             keyInput.placeholder = 'enter access code';
-            keyInput.onblur = function() {
-                loginButton.classList.remove('disabled');
-            };
 
             // create the login button
             loginButton = builder.createElement('div', 'button-input disabled');
             loginButton.innerHTML = 'open';
-
-            loginButton.onclick = function() {
-                log.info('login clicked, fire event: ', ChallengeView.LOGIN_REQUEST);
-                view.emit( view.ACCESS_REQUEST, keyInput.value );
-            };
 
             challengeContainer.appendChild( codeInput );
             challengeContainer.appendChild( keyInput );
             challengeContainer.appendChild( loginButton );
 
             container.appendChild( challengeContainer );
+
+            view.bindEvents();
         }
 
         return container;
+    };
+
+    this.bindEvents = function() {
+        codeInput.onblur = function() {
+            view.emit( view.CODE_REQUEST, codeInput.value );
+            keyInput.classList.remove('disabled');
+        };
+
+        keyInput.onblur = function() {
+            loginButton.classList.remove('disabled');
+        };
+
+        loginButton.onclick = function() {
+            log.info('login clicked, fire event: ', ChallengeView.LOGIN_REQUEST);
+            view.emit( view.ACCESS_REQUEST, keyInput.value );
+        };
     };
 
     AbstractView.extend( this, options );

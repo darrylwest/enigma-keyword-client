@@ -34,12 +34,12 @@ var ViewController = function(options) {
 
     };
 
-    this.codeRequestHandler = function() {
-        log.info('code validation request');
+    this.codeRequestHandler = function(value) {
+        log.info('code validation request: ', value);
     };
 
-    this.accessRequestHandler = function() {
-        log.info('access validation requested');
+    this.accessRequestHandler = function(value) {
+        log.info('access validation requested: ', value);
 
         challengeView.hide();
         splashView.setMessage('validating, please wait...');
