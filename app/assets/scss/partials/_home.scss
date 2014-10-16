@@ -1,0 +1,28 @@
+/**
+ * home view
+ */
+
+#home-view {
+	position: fixed;
+	top: $top-nav-height;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: $c-black;
+	overfly-y: scroll;
+
+	.home-container {
+		text-align: center;
+		padding: 20px;
+		border: 10px solid $c-black;
+		margin: 40px auto 0 auto;
+		width:250px;
+
+		h5 {
+			color: $c-white;
+			margin-top: 20px;
+			font-size: 14px;
+			font-family: Arial, Helvetica;
+		}
+	}
+}

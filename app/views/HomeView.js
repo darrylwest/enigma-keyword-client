@@ -26,6 +26,11 @@ var HomeView = function(options) {
 
             var homeContainer = builder.createElement('div', 'home-container');
 
+            var message = builder.createElement('h5');
+            message.innerHTML = 'Home Page';
+
+            homeContainer.appendChild( message );
+
             container.appendChild( homeContainer );
 
             view.bindEvents();

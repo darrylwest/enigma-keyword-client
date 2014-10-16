@@ -113,10 +113,12 @@ gulp.task('script', function() {
 gulp.task('build', [ 'script', 'html', 'styles', 'css' ]);
 
 gulp.task('watch', function () {
-    gulp.watch([ paths.src, paths.tests ], [ 'test', 'script' ]);
-    gulp.watch([ paths.scss, 'app/assets/scss/*/*.scss' ], [ 'styles', 'css' ]);
-    // gulp.watch([ 'app/index.html' ], [ 'html' ]);
+    gulp.watch([ paths.src, paths.tests ], [ 'test' ]);
+    gulp.watch([ paths.scss, 'app/assets/scss/*/*.scss' ], [ 'styles' ]);
+    gulp.watch([ 'app/index.html' ], [ 'html' ]);
+    gulp.watch([ 'app/assets/css/style.css' ], [ 'css' ]);
+    gulp.watch([ paths.src ], [ 'script' ]);
 });
 
-gulp.task('default', [ 'clean', 'test', 'build', 'watch' ]);
+gulp.task('default', [ 'test', 'build' ]);
 

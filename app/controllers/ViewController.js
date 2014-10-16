@@ -15,6 +15,7 @@ var ViewController = function(options) {
         parentContainer = options.parentContainer,
         splashView = options.splashView,
         challengeView = options.challengeView,
+        homeView = options.homeView,
         views = options.views;
 
     this.initListeners = function() {
@@ -48,7 +49,7 @@ var ViewController = function(options) {
         // now show the home view...
         setTimeout(function() {
             splashView.hide();
-            controller.showChallengeView();
+            controller.showHomeView();
         }, 3000);
     };
 
@@ -59,7 +60,7 @@ var ViewController = function(options) {
     };
 
     this.showSplashView = function() {
-        log.info('show the splash view');
+        log.info('show the splash view: ', splashView.getViewId() );
 
         var doc = browser.getDocument();
 
@@ -80,7 +81,7 @@ var ViewController = function(options) {
     };
 
     this.showChallengeView = function() {
-        log.info('show the challenge view');
+        log.info('show the challenge view: ', challengeView.getViewId() );
 
         var doc = browser.getDocument();
 
@@ -89,6 +90,19 @@ var ViewController = function(options) {
         } else {
             log.info('add challenge view to DOM, id: ', challengeView.getViewId() );
             parentContainer.appendChild( challengeView.getElement() );
+        }
+    };
+
+    this.showHomeView = function() {
+        log.info('show the home view: ', homeView.getViewId());
+
+        var doc = browser.getDocument();
+
+        if (doc.getElementById( homeView.getViewId() )) {
+            homeView.show();
+        } else {
+            log.info('add home view to DOM, id: ', homeView.getViewId() );
+            parentContainer.appendChild( homeView.getElement() );
         }
     };
 

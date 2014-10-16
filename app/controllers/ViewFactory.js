@@ -6,7 +6,8 @@
  */
 var dash = require('lodash'),
     SplashView = require('../views/SplashView' ),
-    ChallengeView = require('../views/ChallengeView');
+    ChallengeView = require('../views/ChallengeView' ),
+    HomeView = require('../views/HomeView');
 
 var ViewFactory = function(options) {
     'use strict';
@@ -59,6 +60,30 @@ var ViewFactory = function(options) {
             view = new ChallengeView( opts );
 
             views[ ChallengeView.VIEW_NAME ] = view;
+        }
+
+        return view;
+    };
+
+    this.createHomeView = function() {
+        var view = views[ HomeView.VIEW_NAME ];
+
+        if (!view) {
+            log.info('create home view');
+
+            var opts = dash.clone( options );
+
+            if (log.isDebug()) {
+                log.debug( JSON.stringify( opts ));
+            }
+
+            opts.log = createLogger( HomeView.VIEW_NAME );
+            opts.viewName = HomeView.VIEW_NAME;
+            opts.viewId = 'home-view';
+
+            view = new HomeView( opts );
+
+            views[ HomeView.VIEW_NAME ] = view;
         }
 
         return view;

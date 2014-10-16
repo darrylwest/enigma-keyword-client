@@ -29,6 +29,7 @@ describe('ViewFactory', function() {
             methods = [
                 'createSplashView',
                 'createChallengeView',
+                'createHomeView',
                 'getViews'
             ];
 
