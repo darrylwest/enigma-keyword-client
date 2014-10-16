@@ -18,9 +18,7 @@ var ChallengeView = function(options) {
         keyInput,
         loginButton;
 
-    // define event types
-    this.CODE_REQUEST = 'codeRequestEvent';
-    this.ACCESS_REQEUST = 'accessRequestEvent';
+
 
     this.getElement = function() {
         var builder = browser.builder;
@@ -66,9 +64,21 @@ var ChallengeView = function(options) {
         };
 
         loginButton.onclick = function() {
-            log.info('login clicked, fire event: ', ChallengeView.LOGIN_REQUEST);
+            log.info('login clicked, fire event: ', view.ACCESS_REQUEST);
             view.emit( view.ACCESS_REQUEST, keyInput.value );
         };
+    };
+
+    this.getCodeInput = function() {
+        return codeInput;
+    };
+
+    this.getKeyInput = function() {
+        return keyInput;
+    };
+
+    this.getLoginButton = function() {
+        return loginButton;
     };
 
     AbstractView.extend( this, options );
@@ -76,6 +86,10 @@ var ChallengeView = function(options) {
 };
 
 util.inherits( ChallengeView, events.EventEmitter );
+
+// define event types as object variables
+ChallengeView.prototype.CODE_REQUEST = 'codeRequestEvent';
+ChallengeView.prototype.ACCESS_REQUEST = 'accessRequestEvent';
 
 ChallengeView.VIEW_NAME = 'ChallengeView';
 

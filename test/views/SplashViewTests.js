@@ -7,14 +7,14 @@
 var should = require('chai').should(),
     dash = require('lodash' ),
     MockLogger = require('simple-node-logger' ).mocks.MockLogger,
-    MockBrowser = require('mock-browser' ).mocks.MockBrowser,
-    Browser = require('../../app/delegates/Browser' ),
+    MockApplicationFactory = require('../mocks/MockApplicationFactory'),
     SplashView = require('../../app/views/SplashView');
 
 describe('SplashView', function() {
     'use strict';
 
-    Browser.getInstance( new MockBrowser() );
+    // just need to create an instance for browser and component builder
+    new MockApplicationFactory();
 
     var createOptions = function() {
         var opts = {};
@@ -61,8 +61,6 @@ describe('SplashView', function() {
             var div = view.getElement();
 
             should.exist( div );
-
-
         });
     });
 });

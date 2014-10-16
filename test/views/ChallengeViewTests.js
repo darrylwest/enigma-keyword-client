@@ -7,14 +7,14 @@
 var should = require('chai').should(),
     dash = require('lodash' ),
     MockLogger = require('simple-node-logger' ).mocks.MockLogger,
-    MockBrowser = require('mock-browser' ).mocks.MockBrowser,
-    Browser = require('../../app/delegates/Browser' ),
+    MockApplicationFactory = require('../mocks/MockApplicationFactory'),
     ChallengeView = require('../../app/views/ChallengeView');
 
 describe('ChallengeView', function() {
     'use strict';
 
-    Browser.getInstance( new MockBrowser() );
+    // just need to create an instance for browser and component builder
+    new MockApplicationFactory();
 
     var createOptions = function() {
         var opts = {};
@@ -31,6 +31,9 @@ describe('ChallengeView', function() {
             methods = [
                 'getElement',
                 'bindEvents',
+                'getCodeInput',
+                'getKeyInput',
+                'getLoginButton',
                 // inherited
                 'show',
                 'hide',
@@ -61,17 +64,42 @@ describe('ChallengeView', function() {
                 view[ method ].should.be.a( 'function' );
             });
         });
+
+        it('should have known event definitions', function() {
+            should.exist( view.CODE_REQUEST );
+            should.exist( view.ACCESS_REQUEST );
+        });
     });
 
-    describe('getElement', function() {
+    describe('#get', function() {
         var view = new ChallengeView( createOptions() );
 
         it('should create and get the view container element', function() {
             var div = view.getElement();
 
             should.exist( div );
-
-
+            div.children.length.should.equal( 1 );
         });
+
+        it('code input should be readable and have onblur listener', function() {
+            var input = view.getCodeInput();
+
+            should.exist( input );
+            input.onblur.should.be.a('function');
+        });
+
+        it('key input should be readable and have onblur listener', function() {
+            var input = view.getKeyInput();
+
+            should.exist( input );
+            input.onblur.should.be.a('function');
+        });
+
+        it('login button should be readable and have onclick listener', function() {
+            var button = view.getLoginButton();
+
+            should.exist( button );
+            button.onclick.should.be.a('function');
+        })
     });
 });
