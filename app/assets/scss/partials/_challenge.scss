@@ -34,7 +34,7 @@
 	.button-input {
 		cursor: pointer;
 		margin: 10px auto 10px auto;
-		padding-top: 4px;
+		padding-top: 6px;
 		border: 2px solid $c-white;
 		border-radius: 6px;
 		color: $c-white;
@@ -54,5 +54,9 @@
 			background-color: $c-black;
 			border: 2px solid $c-white;
 		}
+	}
+
+	.disabled {
+		opacity: 0.1;
 	}
 }

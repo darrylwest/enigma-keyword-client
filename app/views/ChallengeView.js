@@ -31,18 +31,24 @@ var ChallengeView = function(options) {
             // create the user login input
             codeInput = builder.createElement('input', 'code-input');
             codeInput.placeholder = 'enter user code';
+            codeInput.onblur = function() {
+                keyInput.classList.remove('disabled');
+            };
 
-            keyInput = builder.createElement('input', 'code-input');
+            keyInput = builder.createElement('input', 'code-input disabled');
             keyInput.placeholder = 'enter access code';
+            keyInput.onblur = function() {
+                loginButton.classList.remove('disabled');
+            };
 
             // create the login button
-            loginButton = builder.createElement('div', 'button-input');
-            loginButton.innerHTML = 'login';
+            loginButton = builder.createElement('div', 'button-input disabled');
+            loginButton.innerHTML = 'open';
 
-            loginButton.addEventListener('click', function() {
+            loginButton.onclick = function() {
                 log.info('login clicked, fire event: ', ChallengeView.LOGIN_REQUEST);
                 view.emit( ChallengeView.LOGIN_REQUEST );
-            });
+            };
 
             challengeContainer.appendChild( codeInput );
             challengeContainer.appendChild( keyInput );
