@@ -1,16 +1,16 @@
 /**
- * @class ChallengeViewTests
+ * @class HomeViewTests
  *
  * @author: darryl.west@roundpeg.com
- * @created: 10/15/14 8:29 AM
+ * @created: 10/16/14 1:56 PM
  */
 var should = require('chai').should(),
     dash = require('lodash' ),
     MockLogger = require('simple-node-logger' ).mocks.MockLogger,
     MockApplicationFactory = require('../mocks/MockApplicationFactory'),
-    ChallengeView = require('../../app/views/ChallengeView');
+    HomeView = require('../../app/views/HomeView');
 
-describe('ChallengeView', function() {
+describe('HomeView', function() {
     'use strict';
 
     // just need to create an instance for browser and component builder
@@ -19,21 +19,18 @@ describe('ChallengeView', function() {
     var createOptions = function() {
         var opts = {};
 
-        opts.log = MockLogger.createLogger('ChallengeView');
-        opts.viewName = ChallengeView.VIEW_NAME;
-        opts.viewId = 'challenge-view';
+        opts.log = MockLogger.createLogger('HomeView');
+        opts.viewName = HomeView.VIEW_NAME;
+        opts.viewId = 'home-view';
 
         return opts;
     };
 
     describe('#instance', function() {
-        var view = new ChallengeView( createOptions() ),
+        var view = new HomeView( createOptions() ),
             methods = [
                 'getElement',
                 'bindEvents',
-                'getCodeInput',
-                'getKeyInput',
-                'getLoginButton',
                 // inherited
                 'show',
                 'hide',
@@ -51,11 +48,11 @@ describe('ChallengeView', function() {
                 'setMaxListeners'
             ];
 
-        it('should create an instance of ChallengeView', function() {
+        it('should create an instance of HomeView', function() {
             should.exist( view );
-            view.should.be.instanceof( ChallengeView );
+            view.should.be.instanceof( HomeView );
 
-            view.getViewName().should.equal( ChallengeView.VIEW_NAME );
+            view.getViewName().should.equal( HomeView.VIEW_NAME );
         });
 
         it('should have all known methods by size and type', function() {
@@ -66,40 +63,18 @@ describe('ChallengeView', function() {
         });
 
         it('should have known event definitions', function() {
-            should.exist( view.CODE_REQUEST );
-            should.exist( view.ACCESS_REQUEST );
+            // should.exist( view.WHATEVER );
         });
     });
 
     describe('#get', function() {
-        var view = new ChallengeView( createOptions() );
+        var view = new HomeView( createOptions() );
 
         it('should create and get the view container element', function() {
             var div = view.getElement();
 
             should.exist( div );
             div.children.length.should.equal( 1 );
-        });
-
-        it('code input should be readable and have onblur listener', function() {
-            var input = view.getCodeInput();
-
-            should.exist( input );
-            input.onblur.should.be.a('function');
-        });
-
-        it('key input should be readable and have onblur listener', function() {
-            var input = view.getKeyInput();
-
-            should.exist( input );
-            input.onblur.should.be.a('function');
-        });
-
-        it('login button should be readable and have onclick listener', function() {
-            var button = view.getLoginButton();
-
-            should.exist( button );
-            button.onclick.should.be.a('function');
         });
     });
 });

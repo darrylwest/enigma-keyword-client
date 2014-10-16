@@ -18,8 +18,6 @@ var ChallengeView = function(options) {
         keyInput,
         loginButton;
 
-
-
     this.getElement = function() {
         var builder = browser.builder;
 
@@ -30,6 +28,7 @@ var ChallengeView = function(options) {
             container.id = view.getViewId();
 
             var challengeContainer = builder.createElement('div', 'challenge-container');
+
             // create the user login input
             codeInput = builder.createElement('input', 'code-input');
             codeInput.placeholder = 'enter user code';
@@ -54,6 +53,8 @@ var ChallengeView = function(options) {
     };
 
     this.bindEvents = function() {
+        log.info('bind input and button events');
+
         codeInput.onblur = function() {
             view.emit( view.CODE_REQUEST, codeInput.value );
             keyInput.classList.remove('disabled');
