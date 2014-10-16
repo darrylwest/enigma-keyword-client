@@ -111,7 +111,11 @@ var ApplicationFactory = function(options) {
             opts.log = createLogger( ViewController.CONTROLLER_NAME );
             opts.parentContainer = factory.getParentContainer();
 
-            opts.splashView = factory.createViewFactory().createSplashView();
+            var vf = factory.createViewFactory();
+            opts.splashView = vf.createSplashView();
+            opts.challengeView = vf.createChallengeView();
+
+            opts.views = vf.getViews();
 
             controller = new ViewController( opts );
 

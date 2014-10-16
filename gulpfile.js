@@ -113,9 +113,9 @@ gulp.task('script', function() {
 gulp.task('build', [ 'script', 'html', 'styles', 'css' ]);
 
 gulp.task('watch', function () {
-    gulp.watch([ paths.src, paths.tests ], [ 'test' ]);
-    gulp.watch([ paths.scss, 'app/assets/scss/*/*.scss' ], [ 'styles' ]);
-    gulp.watch([ paths.src, 'app/index.html', 'app/assets/css/style.css' ], [ 'script', 'html', 'css' ]);
+    gulp.watch([ paths.src, paths.tests ], [ 'test', 'script' ]);
+    gulp.watch([ paths.scss, 'app/assets/scss/*/*.scss' ], [ 'styles', 'css' ]);
+    // gulp.watch([ 'app/index.html' ], [ 'html' ]);
 });
 
 gulp.task('default', [ 'clean', 'test', 'build', 'watch' ]);

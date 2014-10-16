@@ -30,6 +30,7 @@ describe('SplashView', function() {
         var view = new SplashView( createOptions() ),
             methods = [
                 'getElement',
+                'setMessage',
                 // inherited
                 'show',
                 'hide',

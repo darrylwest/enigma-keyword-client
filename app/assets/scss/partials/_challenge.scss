@@ -13,21 +13,46 @@
 
 	.challenge-container {
 		text-align: center;
-
-		.spinner {
-			@include square( 69px );
-			margin: 100px auto 0 auto;
-			background-image: url("/assets/images/loader.png");
-			background-repeat: no-repeat;
-			display: block;
-			@include animation(spin-animation 1s infinite linear);
-		}
+		padding: 20px;
+		border: 10px solid $c-black;
+		margin: 40px auto 0 auto;
+		width:250px;
 
 		h5 {
 			color: $c-white;
 			margin-top: 20px;
 			font-size: 14px;
 			font-family: Arial, Helvetica;
+		}
+	}
+
+	.code-input {
+		margin: 10px auto 10px auto;
+		width: 90%;
+	}
+
+	.button-input {
+		cursor: pointer;
+		margin: 10px auto 10px auto;
+		padding-top: 4px;
+		border: 2px solid $c-white;
+		border-radius: 6px;
+		color: $c-white;
+		height: 24px;
+		width: 90%;
+		vertical-align: middle;
+		font-size: 16px;
+		font-family: Arial, Helvetica;
+
+		&:hover {
+			color: darken($c-white, 10);
+			background-color: lighten($c-black, 15);
+			border: 2px solid darken($c-white, 10);
+		}
+		&:active {
+			text-shadow: 0px 1px 0px rgba(255, 255, 255, .4);
+			background-color: $c-black;
+			border: 2px solid $c-white;
 		}
 	}
 }

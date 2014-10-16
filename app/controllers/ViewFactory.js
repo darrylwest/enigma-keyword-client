@@ -5,7 +5,8 @@
  * @created: 10/6/14 5:14 PM
  */
 var dash = require('lodash'),
-    SplashView = require('../views/SplashView');
+    SplashView = require('../views/SplashView' ),
+    ChallengeView = require('../views/ChallengeView');
 
 var ViewFactory = function(options) {
     'use strict';
@@ -37,6 +38,34 @@ var ViewFactory = function(options) {
         }
 
         return view;
+    };
+
+    this.createChallengeView = function() {
+        var view = views[ ChallengeView.VIEW_NAME ];
+
+        if (!view) {
+            log.info('create challenge view');
+
+            var opts = dash.clone( options );
+
+            if (log.isDebug()) {
+                log.debug( JSON.stringify( opts ));
+            }
+
+            opts.log = createLogger( ChallengeView.VIEW_NAME );
+            opts.viewName = ChallengeView.VIEW_NAME;
+            opts.viewId = 'challenge-view';
+
+            view = new ChallengeView( opts );
+
+            views[ ChallengeView.VIEW_NAME ] = view;
+        }
+
+        return view;
+    };
+
+    this.getViews = function() {
+        return views;
     };
 
     // constructor validations

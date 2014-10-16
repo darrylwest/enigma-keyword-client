@@ -27,7 +27,9 @@ describe('ViewFactory', function() {
     describe('#instance', function() {
         var factory = new ViewFactory( createOptions() ),
             methods = [
-                'createSplashView'
+                'createSplashView',
+                'createChallengeView',
+                'getViews'
             ];
 
         it('should create an instance of ViewFactory', function() {

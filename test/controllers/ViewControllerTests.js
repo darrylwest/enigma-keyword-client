@@ -29,7 +29,10 @@ describe('ViewController', function() {
             methods = [
                 'initListeners',
                 'configurationHandler',
-                'showSplashView'
+                'loginRequestHandler',
+                'hideViews',
+                'showSplashView',
+                'showChallengeView'
             ];
 
         it('should create an instance of ViewController', function() {

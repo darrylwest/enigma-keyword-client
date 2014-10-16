@@ -35,7 +35,16 @@ describe('ChallengeView', function() {
                 'hide',
                 'isHidden',
                 'getViewName',
-                'getViewId'
+                'getViewId',
+                // inherited from event emitter
+                'addListener',
+                'emit',
+                'listeners',
+                'on',
+                'once',
+                'removeAllListeners',
+                'removeListener',
+                'setMaxListeners'
             ];
 
         it('should create an instance of ChallengeView', function() {

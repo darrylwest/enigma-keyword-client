@@ -11,7 +11,8 @@ var SplashView = function(options) {
 
     var view = this,
         log = options.log,
-        container;
+        container,
+        message;
 
     /**
      * lazy create of view container
@@ -19,7 +20,6 @@ var SplashView = function(options) {
      * @returns the view container
      */
     this.getElement = function() {
-
         var builder = browser.builder;
 
         if (!container) {
@@ -31,17 +31,23 @@ var SplashView = function(options) {
             var splash = builder.createElement('div', 'splash-container');
             var spinner = builder.createElement('div', 'spinner');
 
-            var msg = builder.createElement('h5');
-            msg.innerHTML = 'loading, please wait...';
+            message = builder.createElement('h5');
+            view.setMessage( 'loading, please wait...' );
 
             // assemble
             splash.appendChild( spinner );
-            splash.appendChild( msg );
+            splash.appendChild( message );
 
             container.appendChild( splash );
         }
 
         return container;
+    };
+
+    this.setMessage = function(text) {
+        if (message) {
+            message.innerHTML = text;
+        }
     };
 
     // this needs to run after getElement is defined
