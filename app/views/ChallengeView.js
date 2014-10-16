@@ -18,6 +18,10 @@ var ChallengeView = function(options) {
         keyInput,
         loginButton;
 
+    // define event types
+    this.CODE_REQUEST = 'codeRequestEvent';
+    this.ACCESS_REQEUST = 'accessRequestEvent';
+
     this.getElement = function() {
         var builder = browser.builder;
 
@@ -32,6 +36,7 @@ var ChallengeView = function(options) {
             codeInput = builder.createElement('input', 'code-input');
             codeInput.placeholder = 'enter user code';
             codeInput.onblur = function() {
+                view.emit( view.CODE_REQUEST, codeInput.value );
                 keyInput.classList.remove('disabled');
             };
 
@@ -47,7 +52,7 @@ var ChallengeView = function(options) {
 
             loginButton.onclick = function() {
                 log.info('login clicked, fire event: ', ChallengeView.LOGIN_REQUEST);
-                view.emit( ChallengeView.LOGIN_REQUEST );
+                view.emit( view.ACCESS_REQUEST, keyInput.value );
             };
 
             challengeContainer.appendChild( codeInput );
@@ -66,7 +71,6 @@ var ChallengeView = function(options) {
 
 util.inherits( ChallengeView, events.EventEmitter );
 
-ChallengeView.LOGIN_REQUEST = 'loginRequestEvent';
 ChallengeView.VIEW_NAME = 'ChallengeView';
 
 module.exports = ChallengeView;

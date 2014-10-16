@@ -5,8 +5,7 @@
  * @created: 10/6/14 8:55 AM
  */
 var dash = require('lodash' ),
-    ApplicationStateEvent = require('../events/ApplicationStateEvent' ),
-    ChallengeView = require('../views/ChallengeView');
+    ApplicationStateEvent = require('../events/ApplicationStateEvent' );
 
 var ViewController = function(options) {
     'use strict';
@@ -26,7 +25,8 @@ var ViewController = function(options) {
         // configuration, ready, and start
         dispatcher.on( ApplicationStateEvent.CONFIGURATION_READY, controller.configurationHandler );
 
-        challengeView.on( ChallengeView.LOGIN_REQUEST, controller.loginRequestHandler );
+        challengeView.on( challengeView.CODE_REQUEST, controller.codeRequestHandler );
+        challengeView.on( challengeView.ACCESS_REQUEST, controller.accessRequestHandler );
     };
 
     this.configurationHandler = function(conf) {
@@ -34,8 +34,13 @@ var ViewController = function(options) {
 
     };
 
-    this.loginRequestHandler = function() {
-        log.info('login requested');
+    this.codeRequestHandler = function() {
+        log.info('code validation request');
+    };
+
+    this.accessRequestHandler = function() {
+        log.info('access validation requested');
+
         challengeView.hide();
         splashView.setMessage('validating, please wait...');
         splashView.show();

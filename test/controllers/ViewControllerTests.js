@@ -29,7 +29,8 @@ describe('ViewController', function() {
             methods = [
                 'initListeners',
                 'configurationHandler',
-                'loginRequestHandler',
+                'codeRequestHandler',
+                'accessRequestHandler',
                 'hideViews',
                 'showSplashView',
                 'showChallengeView'
