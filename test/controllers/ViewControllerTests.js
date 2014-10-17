@@ -34,7 +34,8 @@ describe('ViewController', function() {
                 'hideViews',
                 'showSplashView',
                 'showChallengeView',
-                'showHomeView'
+                'showHomeView',
+                'showNavView'
             ];
 
         it('should create an instance of ViewController', function() {

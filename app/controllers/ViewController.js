@@ -16,6 +16,7 @@ var ViewController = function(options) {
         splashView = options.splashView,
         challengeView = options.challengeView,
         homeView = options.homeView,
+        navView = options.navView,
         views = options.views;
 
     this.initListeners = function() {
@@ -49,8 +50,9 @@ var ViewController = function(options) {
         // now show the home view...
         setTimeout(function() {
             splashView.hide();
+            controller.showNavView();
             controller.showHomeView();
-        }, 3000);
+        }, 2000);
     };
 
     this.hideViews = function() {
@@ -103,6 +105,19 @@ var ViewController = function(options) {
         } else {
             log.info('add home view to DOM, id: ', homeView.getViewId() );
             parentContainer.appendChild( homeView.getElement() );
+        }
+    };
+
+    this.showNavView = function() {
+        log.info('show the nav view: ', navView.getViewId() );
+
+        var doc = browser.getDocument();
+
+        if (doc.getElementById( navView.getViewId() )) {
+            navView.show();
+        } else {
+            log.info('add nav view to DOM, id: ', navView.getViewId() );
+            parentContainer.appendChild( navView.getElement() );
         }
     };
 

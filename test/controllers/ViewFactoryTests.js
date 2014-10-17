@@ -30,6 +30,7 @@ describe('ViewFactory', function() {
                 'createSplashView',
                 'createChallengeView',
                 'createHomeView',
+                'createNavView',
                 'getViews'
             ];
 

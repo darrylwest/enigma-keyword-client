@@ -1,0 +1,25 @@
+/**
+ * navigation view
+ */
+
+#nav-view {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: $top-nav-height;
+	background-color: $c-black;
+
+	.nav-container {
+		text-align: center;
+		padding: 0;
+
+		h5 {
+			color: $c-white;
+			margin-top: 10px;
+			font-size: 14px;
+			font-family: Arial, Helvetica;
+		}
+		
+	}
+}

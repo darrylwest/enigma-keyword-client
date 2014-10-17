@@ -111,10 +111,12 @@ var ApplicationFactory = function(options) {
             opts.log = createLogger( ViewController.CONTROLLER_NAME );
             opts.parentContainer = factory.getParentContainer();
 
+            //
             var vf = factory.createViewFactory();
             opts.splashView = vf.createSplashView();
             opts.challengeView = vf.createChallengeView();
             opts.homeView = vf.createHomeView();
+            opts.navView = vf.createNavView();
 
             opts.views = vf.getViews();
 
