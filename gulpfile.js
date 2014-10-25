@@ -38,8 +38,8 @@ var paths = {
 };
 
 gulp.task('jshint', function() {
-    gulp.src([ paths.src, paths.tests, paths.bin ] )
-        .pipe( plumber({ errorHandler:errorHandler }) )
+    var stream = gulp.src([ paths.src, paths.tests, paths.bin ] )
+        // .pipe( plumber({ errorHandler:errorHandler }) )
         .pipe( jshint() )
         .pipe( jshint.reporter('jshint-stylish') );
 });
@@ -81,6 +81,7 @@ gulp.task('compass', function() {
             sass:'scss',
             image:'images'
         }))
+        .pipe( gulpif( env === 'production', minifyCSS() ))
         .pipe(gulp.dest( 'build/assets/css' ));
 });
 
@@ -108,11 +109,10 @@ gulp.task('script', function() {
 gulp.task('build', [ 'script', 'html', 'compass', 'assets' ]);
 
 gulp.task('watch', function () {
-    gulp.watch([ paths.src, paths.tests ], [ 'test' ], function(event) {
-        gutil.log('file ' + event.path + ' was ' + event.type);
-    });
+    gulp.watch([ paths.src, paths.tests ], [ 'test', 'script' ]);
     gulp.watch([ paths.scss, 'app/assets/scss/**/*.scss' ], [ 'compass' ]);
     gulp.watch([ 'app/index.html' ], [ 'html' ]);
+    gulp.watch([ paths.src ], [ 'script' ]);
 });
 
 gulp.task('default', [ 'test', 'build' ]);
