@@ -116,6 +116,7 @@ var ApplicationFactory = function(options) {
             opts.splashView = viewFactory.createSplashView();
             opts.challengeView = viewFactory.createChallengeView();
             opts.homeView = viewFactory.createHomeView();
+            opts.aboutView = viewFactory.createAboutView();
             opts.navView = viewFactory.createNavView();
 
             opts.views = viewFactory.getViews();

@@ -19,8 +19,10 @@ var ViewController = function(options) {
         splashView = options.splashView,
         challengeView = options.challengeView,
         homeView = options.homeView,
+        aboutView = options.aboutView,
         navView = options.navView,
-        session;
+        session,
+        activeView;
 
     this.initListeners = function() {
         log.info('initialize event listeners');
@@ -53,6 +55,27 @@ var ViewController = function(options) {
             log.info('new url: ', event.newURL );
 
             // show the view
+            var id = dash.last( event.newURL.split('#') ),
+                view;
+
+            log.info('search for view id: ', id);
+
+            view = dash.find( [ homeView, aboutView ], function(view) {
+                return view.getViewId().indexOf( id ) >= 0;
+            });
+
+            if (view) {
+                log.debug('view found from id: ', id);
+                if (activeView) {
+                    log.info('hide the active view: ', activeView.getViewId());
+                    activeView.hide();
+                }
+
+                controller.showView( view );
+                activeView = view;
+            } else {
+                log.error('view not found for id: ', id);
+            }
         });
     };
 
@@ -85,56 +108,30 @@ var ViewController = function(options) {
             splashView.hide();
 
             // skip the challenge for now
-            if (false) {
-                controller.showChallengeView();
+            if (!session) {
+                controller.showView( challengeView );
             } else {
-                controller.showNavView();
-                controller.showHomeView();
+                controller.showView( navView );
+                controller.showView( homeView );
             }
 
         }, 2000);
     };
 
-    this.showChallengeView = function() {
-        log.info('show the challenge view: ', challengeView.getViewId() );
+    this.showView = function(view) {
+        log.info('show view: ', view.getViewId());
 
         var doc = browser.getDocument();
 
-        if (doc.getElementById( challengeView.getViewId() )) {
-            challengeView.show();
+        if (doc.getElementById( view.getViewId() )) {
+            view.show();
         } else {
-            log.info('add challenge view to DOM, id: ', challengeView.getViewId() );
-            parentContainer.appendChild( challengeView.getElement() );
+            log.info('add view to DOM, id: ', view.getViewId() );
+            parentContainer.appendChild( view.getElement() );
         }
     };
 
-    this.showHomeView = function() {
-        log.info('show the home view: ', homeView.getViewId());
-
-        var doc = browser.getDocument();
-
-        if (doc.getElementById( homeView.getViewId() )) {
-            homeView.show();
-        } else {
-            log.info('add home view to DOM, id: ', homeView.getViewId() );
-            parentContainer.appendChild( homeView.getElement() );
-        }
-    };
-
-    this.showNavView = function() {
-        log.info('show the nav view: ', navView.getViewId() );
-
-        var doc = browser.getDocument();
-
-        if (doc.getElementById( navView.getViewId() )) {
-            navView.show();
-        } else {
-            log.info('add nav view to DOM, id: ', navView.getViewId() );
-            parentContainer.appendChild( navView.getElement() );
-        }
-    };
-
-    // TODO move this to the challenge view controller
+    // TODO move all access handlers to the challenge view controller
     this.codeRequestHandler = function(value) {
         log.info('code validation request: ', value);
     };
@@ -148,10 +145,18 @@ var ViewController = function(options) {
 
         // now show the home view...
         setTimeout(function() {
-            splashView.hide();
-            controller.showNavView();
-            controller.showHomeView();
+            controller.sessionValidHandler( {} );
         }, 2000);
+    };
+
+    this.sessionValidHandler = function(sess) {
+        session = sess;
+
+        splashView.hide();
+
+        controller.showView( navView );
+        // controller.showView( homeView );
+        browser.getLocation().hash = 'home';
     };
 
     // constructor validations

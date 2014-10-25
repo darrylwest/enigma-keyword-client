@@ -1,0 +1,27 @@
+/**
+ *
+ */
+
+#about-view {
+	position: fixed;
+	top: $top-nav-height;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: darken($c-white, 50);
+	overfly-y: scroll;
+
+	.about-container {
+		text-align: center;
+		padding: 20px;
+		margin: 40px auto 0 auto;
+		width: 90%;
+
+		h5 {
+			color: $c-black;
+			margin-top: 20px;
+			font-size: 14px;
+			font-family: Arial, Helvetica;
+		}
+	}
+}

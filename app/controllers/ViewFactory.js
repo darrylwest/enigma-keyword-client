@@ -8,6 +8,7 @@ var dash = require('lodash'),
     SplashView = require('../views/SplashView' ),
     ChallengeView = require('../views/ChallengeView' ),
     HomeView = require('../views/HomeView' ),
+    AboutView = require('../views/AboutView' ),
     NavView = require('../views/NavView');
 
 var ViewFactory = function(options) {
@@ -85,6 +86,30 @@ var ViewFactory = function(options) {
             view = new HomeView( opts );
 
             views[ HomeView.VIEW_NAME ] = view;
+        }
+
+        return view;
+    };
+
+    this.createAboutView = function() {
+        var view = views[ AboutView.VIEW_NAME ];
+
+        if (!view) {
+            log.info('create about view');
+
+            var opts = dash.clone( options );
+
+            if (log.isDebug()) {
+                log.debug( JSON.stringify( opts ));
+            }
+
+            opts.log = createLogger( AboutView.VIEW_NAME );
+            opts.viewName = AboutView.VIEW_NAME;
+            opts.viewId = 'about-view';
+
+            view = new AboutView( opts );
+
+            views[ AboutView.VIEW_NAME ] = view;
         }
 
         return view;

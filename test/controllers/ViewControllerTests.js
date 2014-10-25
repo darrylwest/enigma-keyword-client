@@ -32,9 +32,8 @@ describe('ViewController', function() {
                 'codeRequestHandler',
                 'accessRequestHandler',
                 'showSplashView',
-                'showChallengeView',
-                'showHomeView',
-                'showNavView'
+                'showView',
+                'sessionValidHandler'
             ];
 
         it('should create an instance of ViewController', function() {
