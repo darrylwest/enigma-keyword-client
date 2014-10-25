@@ -19,7 +19,8 @@ var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
     map = require('map-stream'),
     fs = require('vinyl-fs'),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'development',
+    mochaReporter = process.env.reporter || 'nyan'; // dot, spec, progress, tap 
 
 gutil.log('env =', env);
 
@@ -46,7 +47,7 @@ gulp.task('jshint', function() {
 gulp.task('mocha', function() {
     gulp.src( paths.tests )
         .pipe( plumber({ errorHandler:errorHandler }) )
-        .pipe( mocha({ reporter:'spec' }) );
+        .pipe( mocha({ reporter:mochaReporter }) );
 });
 
 gulp.task('test', [ 'mocha', 'jshint' ] );
@@ -107,10 +108,11 @@ gulp.task('script', function() {
 gulp.task('build', [ 'script', 'html', 'compass', 'assets' ]);
 
 gulp.task('watch', function () {
-    gulp.watch([ paths.src, paths.tests ], [ 'test' ]);
+    gulp.watch([ paths.src, paths.tests ], [ 'test' ], function(event) {
+        gutil.log('file ' + event.path + ' was ' + event.type);
+    });
     gulp.watch([ paths.scss, 'app/assets/scss/**/*.scss' ], [ 'compass' ]);
     gulp.watch([ 'app/index.html' ], [ 'html' ]);
-    gulp.watch([ paths.src ], [ 'script' ]);
 });
 
 gulp.task('default', [ 'test', 'build' ]);
