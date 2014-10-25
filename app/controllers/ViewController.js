@@ -17,22 +17,33 @@ var ViewController = function(options) {
         challengeView = options.challengeView,
         homeView = options.homeView,
         navView = options.navView,
-        views = options.views;
+        session;
 
     this.initListeners = function() {
         log.info('initialize event listeners');
 
-        var dispatcher = browser.dispatcher;
+        var dispatcher = browser.dispatcher,
+            win = browser.getWindow();
 
         // configuration, ready, and start
         dispatcher.on( ApplicationStateEvent.CONFIGURATION_READY, controller.configurationHandler );
 
         challengeView.on( challengeView.CODE_REQUEST, controller.codeRequestHandler );
         challengeView.on( challengeView.ACCESS_REQUEST, controller.accessRequestHandler );
+
+        navView.on('viewchange', function(name) {
+            log.info('change to view: ', name);
+        });
+
+        win.addEventListener('hashchange', function(event) {
+            log.info('last url: ', event.oldURL );
+            log.info('new url: ', event.newURL );
+        });
     };
 
     this.configurationHandler = function(conf) {
         log.info('configuration: ', conf);
+
 
     };
 
@@ -55,18 +66,15 @@ var ViewController = function(options) {
         }, 2000);
     };
 
-    this.hideViews = function() {
-        dash.values( views ).forEach(function(view) {
-            view.hide();
-        });
-    };
-
     this.showSplashView = function() {
         log.info('show the splash view: ', splashView.getViewId() );
 
-        var doc = browser.getDocument();
+        var doc = browser.getDocument(),
+            loc = browser.getLocation();
 
-        // controller.hideViews();
+        if (!session) {
+            loc.hash = '';
+        }
 
         // show it or build/append/show if it doesn't exist
         if (doc.getElementById( splashView.getViewId() )) {

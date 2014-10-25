@@ -30,18 +30,19 @@ var NavView = function(options) {
 
             var navContainer = builder.createElement('div', 'nav-container');
 
-            home = builder.createElement('a');
+            var title = builder.createElement('span', 'title');
+            title.innerHTML = 'My Application';
+
+            home = builder.createElement('span', 'nav-link');
             home.innerHTML = 'home';
-            home.href = '#home';
 
-            logout = builder.createElement('a');
-            logout.innerHTML = 'logout';
-            logout.href = '#logout';
-
-            about = builder.createElement('a');
+            about = builder.createElement('span', 'nav-link');
             about.innerHTML = 'about';
-            about.href = '#about';
 
+            logout = builder.createElement('span', 'nav-link');
+            logout.innerHTML = 'logout';
+
+            navContainer.appendChild( title );
             navContainer.appendChild( home );
             navContainer.appendChild( about );
             navContainer.appendChild( logout );
@@ -60,11 +61,11 @@ var NavView = function(options) {
         var loc = browser.getLocation();
 
         home.onclick = function() {
-            loc.hash = '#home';
+            view.emit('viewchange', 'home');
         };
 
         about.onclick = function() {
-            loc.hash = '#about';
+            view.emit('viewchange', 'about');
         };
 
         logout.onclick = function() {

@@ -31,7 +31,6 @@ describe('ViewController', function() {
                 'configurationHandler',
                 'codeRequestHandler',
                 'accessRequestHandler',
-                'hideViews',
                 'showSplashView',
                 'showChallengeView',
                 'showHomeView',
