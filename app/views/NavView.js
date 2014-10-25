@@ -13,7 +13,11 @@ var NavView = function(options) {
 
     var view = this,
         log = options.log,
-        container;
+        container,
+        origin = options.origin,
+        home,
+        about,
+        logout;
 
     this.getElement = function() {
         var builder = browser.builder;
@@ -26,9 +30,21 @@ var NavView = function(options) {
 
             var navContainer = builder.createElement('div', 'nav-container');
 
-            var message = builder.createElement('h5');
-            message.innerHTML = 'Nav Panel';
-            navContainer.appendChild( message );
+            home = builder.createElement('a');
+            home.innerHTML = 'home';
+            home.href = '#home';
+
+            logout = builder.createElement('a');
+            logout.innerHTML = 'logout';
+            logout.href = '#logout';
+
+            about = builder.createElement('a');
+            about.innerHTML = 'about';
+            about.href = '#about';
+
+            navContainer.appendChild( home );
+            navContainer.appendChild( about );
+            navContainer.appendChild( logout );
 
             container.appendChild( navContainer );
 
@@ -40,6 +56,20 @@ var NavView = function(options) {
 
     this.bindEvents = function() {
         log.info('bind events');
+
+        var loc = browser.getLocation();
+
+        home.onclick = function() {
+            loc.hash = '#home';
+        };
+
+        about.onclick = function() {
+            loc.hash = '#about';
+        };
+
+        logout.onclick = function() {
+            loc.replace( origin );
+        };
     };
 
     AbstractView.extend( this, options );

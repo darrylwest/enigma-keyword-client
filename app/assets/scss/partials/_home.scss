@@ -8,18 +8,17 @@
 	right: 0;
 	left: 0;
 	bottom: 0;
-	background-color: lighten($c-black, 25);
+	background-color: darken($c-white, 20);
 	overfly-y: scroll;
 
 	.home-container {
 		text-align: center;
 		padding: 20px;
-		border: 1px solid $c-black;
 		margin: 40px auto 0 auto;
-		width:250px;
+		width: 90%;
 
 		h5 {
-			color: $c-white;
+			color: $c-black;
 			margin-top: 20px;
 			font-size: 14px;
 			font-family: Arial, Helvetica;

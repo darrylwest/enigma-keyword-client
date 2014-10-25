@@ -69,23 +69,9 @@ gulp.task('html', function() {
         .pipe( plumber({ errorHandler:errorHandler }) )
         .pipe(map( filterIndex ))
         .pipe(gulp.dest( paths.build ));
-
 });
 
-gulp.task('css', function() {
-    // copy assets
-    gulp.src(
-        [
-            'app/assets/css/style.css', 
-            'app/assets/images/**', 
-            'app/assets/svg/*', 
-            'app/assets/fonts/**'
-        ], { base:'app' } )
-        .pipe( plumber({ errorHandler:errorHandler }) )
-        .pipe(gulp.dest( paths.build ));
-});
-
-gulp.task('styles', function() {
+gulp.task('compass', function() {
     gulp.src([ paths.scss ])
         .pipe( plumber({ errorHandler:errorHandler }) )
         .pipe( compass({
@@ -94,9 +80,17 @@ gulp.task('styles', function() {
             sass:'scss',
             image:'images'
         }))
-        // .pipe( gulpif( env === 'production', minifyCSS() ))
-        .pipe( gulp.dest('app/assets/css') );
+        .pipe(gulp.dest( 'build/assets/css' ));
+});
 
+gulp.task('assets', function() {
+    gulp.src(
+        [
+            'app/assets/images/**', 
+            'app/assets/svg/*', 
+            'app/assets/fonts/**'
+        ], { base:'app' } )
+        .pipe( gulp.dest( paths.build ) );
 });
 
 gulp.task('script', function() {
@@ -110,13 +104,12 @@ gulp.task('script', function() {
 });
 
 // create a deploy that minifies the build
-gulp.task('build', [ 'script', 'html', 'styles', 'css' ]);
+gulp.task('build', [ 'script', 'html', 'compass', 'assets' ]);
 
 gulp.task('watch', function () {
     gulp.watch([ paths.src, paths.tests ], [ 'test' ]);
-    gulp.watch([ paths.scss, 'app/assets/scss/*/*.scss' ], [ 'styles' ]);
+    gulp.watch([ paths.scss, 'app/assets/scss/**/*.scss' ], [ 'compass' ]);
     gulp.watch([ 'app/index.html' ], [ 'html' ]);
-    gulp.watch([ 'app/assets/css/style.css' ], [ 'css' ]);
     gulp.watch([ paths.src ], [ 'script' ]);
 });
 
