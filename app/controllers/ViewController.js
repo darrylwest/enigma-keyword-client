@@ -14,6 +14,7 @@ var ViewController = function(options) {
 
     var controller = this,
         log = options.log,
+        origin = options.origin,
         parentContainer = options.parentContainer,
         splashView = options.splashView,
         challengeView = options.challengeView,
@@ -25,6 +26,7 @@ var ViewController = function(options) {
         log.info('initialize event listeners');
 
         var dispatcher = browser.dispatcher,
+            loc = browser.getLocation(),
             win = browser.getWindow();
 
         // configuration, ready, and start
@@ -33,39 +35,31 @@ var ViewController = function(options) {
         challengeView.on( challengeView.CODE_REQUEST, controller.codeRequestHandler );
         challengeView.on( challengeView.ACCESS_REQUEST, controller.accessRequestHandler );
 
-        navView.on('viewchange', function(name) {
-            log.info('change to view: ', name);
+        navView.on('viewchange', function(id) {
+            log.info('change to view: ', id);
+
+            log.info( id === 'logout' );
+
+            if (id === 'logout') {
+                log.info('origin: ', origin);
+                loc.replace( origin );
+            } else {
+                loc.hash = id;
+            }
         });
 
         win.addEventListener('hashchange', function(event) {
             log.info('last url: ', event.oldURL );
             log.info('new url: ', event.newURL );
+
+            // show the view
         });
     };
 
     this.configurationHandler = function(conf) {
         log.info('configuration: ', conf);
 
-
-    };
-
-    this.codeRequestHandler = function(value) {
-        log.info('code validation request: ', value);
-    };
-
-    this.accessRequestHandler = function(value) {
-        log.info('access validation requested: ', value);
-
-        challengeView.hide();
-        splashView.setMessage('validating, please wait...');
-        splashView.show();
-
-        // now show the home view...
-        setTimeout(function() {
-            splashView.hide();
-            controller.showNavView();
-            controller.showHomeView();
-        }, 2000);
+        // assign configuration to views
     };
 
     this.showSplashView = function() {
@@ -89,7 +83,15 @@ var ViewController = function(options) {
 
         setTimeout(function() {
             splashView.hide();
-            controller.showChallengeView();
+
+            // skip the challenge for now
+            if (false) {
+                controller.showChallengeView();
+            } else {
+                controller.showNavView();
+                controller.showHomeView();
+            }
+
         }, 2000);
     };
 
@@ -130,6 +132,26 @@ var ViewController = function(options) {
             log.info('add nav view to DOM, id: ', navView.getViewId() );
             parentContainer.appendChild( navView.getElement() );
         }
+    };
+
+    // TODO move this to the challenge view controller
+    this.codeRequestHandler = function(value) {
+        log.info('code validation request: ', value);
+    };
+
+    this.accessRequestHandler = function(value) {
+        log.info('access validation requested: ', value);
+
+        challengeView.hide();
+        splashView.setMessage('validating, please wait...');
+        splashView.show();
+
+        // now show the home view...
+        setTimeout(function() {
+            splashView.hide();
+            controller.showNavView();
+            controller.showHomeView();
+        }, 2000);
     };
 
     // constructor validations

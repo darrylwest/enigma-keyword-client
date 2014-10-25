@@ -17,10 +17,32 @@ var NavView = function(options) {
     var view = this,
         log = options.log,
         container,
-        origin = options.origin,
-        home,
-        about,
-        logout;
+        config;
+
+    // TODO move this to a controller that listens for configurationReady...
+    if (!config) {
+        config = {};
+
+        config.appTitle = 'My Application';
+        config.links = [
+            {
+                id: 'home',
+                label: 'home'
+            },
+            {
+                id: 'about',
+                label: 'about'
+            },
+            {
+                id: 'logout',
+                label: 'logout'
+            }
+        ];
+    }
+
+    this.configure = function(conf) {
+        config = conf;
+    };
 
     this.getElement = function() {
         var builder = browser.builder;
@@ -34,46 +56,41 @@ var NavView = function(options) {
             var navContainer = builder.createElement('div', 'nav-container');
 
             var title = builder.createElement('span', 'title');
-            title.innerHTML = 'My Application';
-
-            home = builder.createElement('span', 'nav-link');
-            home.innerHTML = 'home';
-
-            about = builder.createElement('span', 'nav-link');
-            about.innerHTML = 'about';
-
-            logout = builder.createElement('span', 'nav-link');
-            logout.innerHTML = 'logout';
+            title.innerHTML = config.appTitle;
 
             navContainer.appendChild( title );
-            navContainer.appendChild( home );
-            navContainer.appendChild( about );
-            navContainer.appendChild( logout );
+
+            var buttons = [];
+            config.links.forEach(function(link) {
+                var btn = builder.createElement('span', 'nav-link');
+                btn.innerHTML = link.label || link.id;
+                btn.link = link;
+
+                buttons.push( btn );
+                navContainer.appendChild( btn );
+            });
 
             container.appendChild( navContainer );
 
-            view.bindEvents();
+            view.bindEvents( buttons );
         }
 
         return container;
     };
 
-    this.bindEvents = function() {
+    this.bindEvents = function(buttons) {
         log.info('bind events');
 
-        var loc = browser.getLocation();
+        buttons.forEach(function(btn) {
 
-        home.onclick = function() {
-            view.emit('viewchange', 'home');
-        };
+            var link = btn.link;
 
-        about.onclick = function() {
-            view.emit('viewchange', 'about');
-        };
+            log.info('configure link: ', link.id);
 
-        logout.onclick = function() {
-            loc.replace( origin );
-        };
+            btn.onclick = function() {
+                view.emit('viewchange', link.id );
+            };
+        });
     };
 
     AbstractView.extend( this, options );

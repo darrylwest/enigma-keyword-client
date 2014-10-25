@@ -29,6 +29,7 @@ describe('NavView', function() {
     describe('#instance', function() {
         var view = new NavView( createOptions() ),
             methods = [
+                'configure',
                 'getElement',
                 'bindEvents',
                 // inherited

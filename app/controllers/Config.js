@@ -16,7 +16,7 @@ var Config = function(env) {
     this.version = VERSION;
 
     // use the global browser object to point to the origin
-    this.origin = loc.href.replace('index.html', '');
+    this.origin = loc.origin || loc.href.replace('index.html', '' ).split('#')[0];
 
     // standard data host and data URI
     this.dataHostURL = [ loc.protocol, '//', loc.hostname, ':', loc.port ].join('');
