@@ -17,13 +17,11 @@ clean:
 	@( gulp clean )
 
 build:
+	@( gulp clean )
 	@( gulp build )
 
 watch:
 	@( gulp watch )
-
-less:
-	@( gulp less )
 
 docs:
 	@( gulp jsdoc )
@@ -33,7 +31,6 @@ deploy:
 	@( NODE_ENV=production gulp build )
 
 .PHONY: deploy
-.PHONY: less
 .PHONY: jshint
 .PHONY: npm
 .PHONY: test
