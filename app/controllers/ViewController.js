@@ -1,5 +1,7 @@
 /**
- * @class ViewController
+ * @class ViewController - control startup and session management.  this view controller also
+ * controls view navigation by listening for viewchange events from nav view.  For larger projects
+ * this logic should be done in a nav view controller.
  *
  * @author: darryl.west@roundpeg.com
  * @created: 10/6/14 8:55 AM
@@ -72,7 +74,8 @@ var ViewController = function(options) {
         var doc = browser.getDocument(),
             loc = browser.getLocation();
 
-        if (!session) {
+        if (!session && loc.hash !== '') {
+            log.info('initialize the hash');
             loc.hash = '';
         }
 

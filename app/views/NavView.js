@@ -1,5 +1,8 @@
 /**
- * @class NavView
+ * @class NavView - the nav view is a container for title and navigation buttons.  Screen switching
+ * is not controlled here, just the button clicks and emitted viewchange events.  The listening
+ * controller (view controller, nav controller, etc) does view change arbitration and probably
+ * sets the hash.
  *
  * @author: darryl.west@roundpeg.com
  * @created: 10/17/14 9:26 AM
