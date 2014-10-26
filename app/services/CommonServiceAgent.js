@@ -1,5 +1,7 @@
 /**
- * @class CommonServiceAgent
+ * @class CommonServiceAgent - the common service object used for all rest calls.  each of
+ * the three calls, query, find and save take a single callback with signature err, res.
+ *
  *
  * @author: darryl.west@roundpeg.com
  * @created: 10/13/14 7:40 AM

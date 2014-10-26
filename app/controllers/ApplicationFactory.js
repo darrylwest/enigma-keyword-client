@@ -186,10 +186,8 @@ var ApplicationFactory = function(options) {
         log.info('fetch the remote configuration');
 
         var service = factory.createServiceFactory().createConfigurationService();
-        service.find( options.environment, function(err, res) {
+        var obj = service.find( options.environment, function(err, res) {
             var conf;
-
-            console.log( res );
 
             if (err) {
                 log.error( err );
@@ -207,6 +205,8 @@ var ApplicationFactory = function(options) {
             // fire the application ready event
             browser.dispatcher.emit( ApplicationStateEvent.CONFIGURATION_READY, conf );
         });
+
+        console.log( obj );
     };
 
     // to enable inspection of original config
