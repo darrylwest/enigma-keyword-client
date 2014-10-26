@@ -8,6 +8,7 @@ var should = require('chai').should(),
     dash = require('lodash' ),
     MockLogger = require('simple-node-logger' ).mocks.MockLogger,
     MockApplicationFactory = require('../mocks/MockApplicationFactory'),
+    Dataset = require('../fixtures/TestDataset' ),
     NavView = require('../../app/views/NavView');
 
 describe('NavView', function() {
@@ -69,7 +70,10 @@ describe('NavView', function() {
     });
 
     describe('#get', function() {
-        var view = new NavView( createOptions() );
+        var view = new NavView( createOptions() ),
+            dataset = new Dataset();
+
+        view.configure( dataset.createNavConfiguration() );
 
         it('should create and get the view container element', function() {
             var div = view.getElement();

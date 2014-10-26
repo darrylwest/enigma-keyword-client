@@ -19,29 +19,18 @@ var NavView = function(options) {
         container,
         config;
 
-    // TODO move this to a controller that listens for configurationReady...
-    if (!config) {
-        config = {};
-
-        config.appTitle = 'My Application';
-        config.links = [
-            {
-                id: 'home',
-                label: 'home'
-            },
-            {
-                id: 'about',
-                label: 'about'
-            },
-            {
-                id: 'logout',
-                label: 'logout'
-            }
-        ];
-    }
-
+    /**
+     * set the navigation configuration for appTitle, links, etc.
+     * @param conf
+     */
     this.configure = function(conf) {
-        config = conf;
+        if (conf.hasOwnProperty('navigation')) {
+            config = conf.navigation;
+        } else {
+            config = conf;
+        }
+
+        log.info('nav configured: ', JSON.stringify( config, true, 2 ));
     };
 
     this.getElement = function() {

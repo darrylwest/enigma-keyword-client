@@ -34,6 +34,10 @@ var Config = function(env) {
 
     // disable the remote logger
     this.enableLogMessagePublisher = false;
+
+    if (extconfig.configuration) {
+        this.configuration = extconfig.configuration;
+    }
 };
 
 Config.development = function() {

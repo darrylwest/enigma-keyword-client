@@ -3,5 +3,16 @@
     "appkey":"794acb72-5473-11e4-8f6d-af870761a311",
     "port":18005,
     "home":"./build/",
-    "env":"development"
+    "env":"development",
+    "configuration":{
+        "navigation":{
+            "appTitle":"Local Application",
+            "links":[
+                { "id":"home", "label":"home" },
+                { "id":"about", "label":"about" },
+                { "id":"logout", "label":"logout" }
+            ]
+        }
+    }
 }
+

@@ -82,7 +82,7 @@ var ViewController = function(options) {
     this.configurationHandler = function(conf) {
         log.info('configuration: ', conf);
 
-        // assign configuration to views
+        navView.configure( conf.navigation );
     };
 
     this.showSplashView = function() {

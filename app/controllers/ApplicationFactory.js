@@ -179,21 +179,33 @@ var ApplicationFactory = function(options) {
 
         factory.createViewController().showSplashView();
 
-        // this.fetchConfiguration();
+        this.fetchConfiguration();
     };
 
     this.fetchConfiguration = function() {
-        // now fetch the remote configuration
+        log.info('fetch the remote configuration');
+
         var service = factory.createServiceFactory().createConfigurationService();
         service.find( options.environment, function(err, res) {
+            var conf;
+
+            console.log( res );
+
             if (err) {
                 log.error( err );
-            } else {
+
+                // try to locate the local configuration
+                conf = options.configuration;
+            } else if (res && res.body) {
                 log.info('configuration: ', res.body.status );
-                browser.dispatcher.emit( ApplicationStateEvent.CONFIGURATION_READY, res.body.configuration );
+                conf = res.body.configuration;
+            } else {
+                log.warn('default to local configuration');
+                conf = options.configuration;
             }
 
             // fire the application ready event
+            browser.dispatcher.emit( ApplicationStateEvent.CONFIGURATION_READY, conf );
         });
     };
 
