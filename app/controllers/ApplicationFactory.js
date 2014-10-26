@@ -186,18 +186,21 @@ var ApplicationFactory = function(options) {
         log.info('fetch the remote configuration');
 
         var service = factory.createServiceFactory().createConfigurationService();
-        var obj = service.find( options.environment, function(err, res) {
+        service.find( options.environment, function(err, res) {
             var conf;
 
             if (err) {
                 log.error( err );
+            } else if (res) {
+                if (res.error) {
+                    log.error( 'status: ', res.status, ', error: ', res.error );
+                } else if (res.body.status === 'ok') {
+                    log.info('configuration: ', res.body.status );
+                    conf = res.body.configuration;
+                }
+            }
 
-                // try to locate the local configuration
-                conf = options.configuration;
-            } else if (res && res.body) {
-                log.info('configuration: ', res.body.status );
-                conf = res.body.configuration;
-            } else {
+            if (!conf) {
                 log.warn('default to local configuration');
                 conf = options.configuration;
             }
@@ -205,8 +208,6 @@ var ApplicationFactory = function(options) {
             // fire the application ready event
             browser.dispatcher.emit( ApplicationStateEvent.CONFIGURATION_READY, conf );
         });
-
-        console.log( obj );
     };
 
     // to enable inspection of original config
