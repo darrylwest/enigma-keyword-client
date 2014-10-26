@@ -29,6 +29,8 @@ describe('ViewController', function() {
             methods = [
                 'initListeners',
                 'configurationHandler',
+                'applicationReadyHandler',
+                'applicationStartHandler',
                 'codeRequestHandler',
                 'accessRequestHandler',
                 'showSplashView',

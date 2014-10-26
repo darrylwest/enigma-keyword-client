@@ -129,6 +129,11 @@ var ApplicationFactory = function(options) {
         return controller;
     };
 
+    /**
+     * return the application's single parent container
+     *
+     * @returns parent container
+     */
     this.getParentContainer = function() {
         var doc = Browser.getInstance().getDocument(),
             container = doc.getElementById( options.parentContainerId );
@@ -140,6 +145,11 @@ var ApplicationFactory = function(options) {
         return container;
     };
 
+    /**
+     * initialize the singleton browser object
+     *
+     * @returns browser
+     */
     this.initBrowser = function() {
         log.info('initialize the browser object');
 
@@ -154,6 +164,9 @@ var ApplicationFactory = function(options) {
         return browser;
     };
 
+    /**
+     * primary call from index page to execute all factory construction and start the application
+     */
     this.initialize = function() {
         log.info('initialize the application factory, version: ', options.version, ', environment: ', options.environment);
 
@@ -174,6 +187,9 @@ var ApplicationFactory = function(options) {
         factory.startApplication();
     };
 
+    /**
+     * start the main application; show the splash, fetch the remote configuration
+     */
     this.startApplication = function() {
         log.info('start the application by showing the splash page and fetching the external configuration');
 
@@ -182,6 +198,9 @@ var ApplicationFactory = function(options) {
         this.fetchConfiguration();
     };
 
+    /**
+     * fetch the remote configuration; on error, use the local config; fire configuration ready
+     */
     this.fetchConfiguration = function() {
         log.info('fetch the remote configuration');
 
@@ -207,6 +226,11 @@ var ApplicationFactory = function(options) {
 
             // fire the application ready event
             browser.dispatcher.emit( ApplicationStateEvent.CONFIGURATION_READY, conf );
+
+            // now let the app/controllers know that the factory is complete and app is ready
+            setTimeout(function() {
+                browser.dispatcher.emit( ApplicationStateEvent.APPLICATION_READY );
+            }, 1000);
         });
     };
 

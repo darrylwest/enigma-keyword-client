@@ -33,10 +33,14 @@ var ViewController = function(options) {
 
         // configuration, ready, and start
         dispatcher.on( ApplicationStateEvent.CONFIGURATION_READY, controller.configurationHandler );
+        dispatcher.on( ApplicationStateEvent.APPLICATION_READY, controller.applicationReadyHandler );
+        dispatcher.on( ApplicationStateEvent.APPLICATION_START, controller.applicationStartHandler );
 
+        // TODO - refactor to ChallengeViewController ?
         challengeView.on( challengeView.CODE_REQUEST, controller.codeRequestHandler );
         challengeView.on( challengeView.ACCESS_REQUEST, controller.accessRequestHandler );
 
+        // TODO - refactor to NavViewController?
         navView.on('viewchange', function(id) {
             log.info('change to view: ', id);
 
@@ -50,6 +54,7 @@ var ViewController = function(options) {
             }
         });
 
+        // TODO - refactor to NavViewController?
         win.addEventListener('hashchange', function(event) {
             log.info('last url: ', event.oldURL );
             log.info('new url: ', event.newURL );
@@ -85,6 +90,32 @@ var ViewController = function(options) {
         navView.configure( conf.navigation );
     };
 
+    this.applicationReadyHandler = function() {
+        log.info('application ready, hide the splash and show the challenge to get a session: ', session);
+
+        // let the splash show for the minimum time...
+        var live = Date.now() - splashView.showTime,
+            mintime = Math.min( live + 1000, 1600);
+
+        log.info('splash time: ', live, ', min: ', mintime);
+
+        setTimeout(function() {
+            splashView.hide();
+
+            // skip the challenge for now
+            if (!session) {
+                controller.showView( challengeView );
+            } else {
+                controller.showView( navView );
+                controller.showView( homeView );
+            }
+        }, mintime);
+    };
+
+    this.applicationStartHandler = function() {
+        log.info('application start');
+    };
+
     this.showSplashView = function() {
         log.info('show the splash view: ', splashView.getViewId() );
 
@@ -97,25 +128,13 @@ var ViewController = function(options) {
         }
 
         // show it or build/append/show if it doesn't exist
-        if (doc.getElementById( splashView.getViewId() )) {
-            splashView.show();
-        } else {
+        if (!doc.getElementById( splashView.getViewId() )) {
             log.info('add splash view to DOM, id: ', splashView.getViewId() );
             parentContainer.appendChild( splashView.getElement() );
         }
 
-        setTimeout(function() {
-            splashView.hide();
-
-            // skip the challenge for now
-            if (!session) {
-                controller.showView( challengeView );
-            } else {
-                controller.showView( navView );
-                controller.showView( homeView );
-            }
-
-        }, 2000);
+        splashView.show();
+        splashView.showTime = Date.now();
     };
 
     this.showView = function(view) {

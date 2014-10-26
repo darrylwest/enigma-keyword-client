@@ -2,7 +2,6 @@
  * @class CommonServiceAgent - the common service object used for all rest calls.  each of
  * the three calls, query, find and save take a single callback with signature err, res.
  *
- *
  * @author: darryl.west@roundpeg.com
  * @created: 10/13/14 7:40 AM
  */
@@ -20,6 +19,13 @@ var CommonServiceAgent = function(options) {
         timeout = dash.isNumber( options.timeout ) ? options.timeout : 16000,
         includeXAPIKey = options.includeXAPIKey;
 
+    /**
+     * query a domain to return a list of data models
+     *
+     * @param params - any object structure recognized by the back end
+     * @param callback - standard err, res signature
+     * @returns xhr
+     */
     this.query = function(params, callback) {
         var url = [ host, resource, '/query' ].join('');
 
@@ -33,6 +39,13 @@ var CommonServiceAgent = function(options) {
         return setRequestHeaders( request ).end( callback );
     };
 
+    /**
+     * find and return the single data model based on it's id
+     *
+     * @param id - the domain's unique id
+     * @param callback - standard err, res signature
+     * @returns xhr
+     */
     this.find = function(id, callback) {
         var url = [ host, resource, '/find/', id ].join('' );
 
@@ -41,6 +54,14 @@ var CommonServiceAgent = function(options) {
         return setRequestHeaders( agent.get( url ) ).end( callback );
     };
 
+    /**
+     * save insert/update a single data model.  if a model has an id it will be located and updated.  models
+     * without id will be inserted.  the new/updated model is returned with version, date updated, id, etc.
+     *
+     * @param model - the domain data model
+     * @param callback - standard err, res signature
+     * @returns xhr
+     */
     this.save = function(model, callback) {
         var url,
             post;
@@ -56,6 +77,7 @@ var CommonServiceAgent = function(options) {
         return setRequestHeaders( post ).end( callback );
     };
 
+    // set the request headers for accept, content type, x-api-key, etc.  used by all method calls
     var setRequestHeaders = function(request) {
         log.info('set ');
 
