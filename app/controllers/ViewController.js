@@ -93,11 +93,11 @@ var ViewController = function(options) {
     this.applicationReadyHandler = function() {
         log.info('application ready, hide the splash and show the challenge to get a session: ', session);
 
-        // let the splash show for the minimum time...
-        var live = Date.now() - splashView.showTime,
-            mintime = Math.min( live + 1000, 1600);
+        // let the splash show for the minimum time, but no longer...
+        var startup = Date.now() - splashView.showTime,
+            mintime = Math.max(2000 - startup, 0);
 
-        log.info('splash time: ', live, ', min: ', mintime);
+        log.info('splash time: ', startup, ', min: ', mintime);
 
         setTimeout(function() {
             splashView.hide();
