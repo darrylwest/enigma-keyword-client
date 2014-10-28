@@ -29,6 +29,7 @@ var ServiceFactory = function(options) {
             opts.log = createLogger( name );
             opts.host = [ options.dataHostURL, options.dataURI ].join('');
             opts.resource = '/configuration';
+            opts.includeXAPIKey = options.usekey;
 
             service = new CommonServiceAgent( opts );
             services[ name ] = service;

@@ -43,8 +43,12 @@ var Config = function(env) {
 Config.development = function() {
     'use strict';
 
+    var loc = browser.getLocation();
+
     var config = new Config();
     config.usekey = false;
+
+    config.dataHostURL = [ loc.protocol, '//', loc.hostname, ':15061' ].join('');
 
     return config;
 };
