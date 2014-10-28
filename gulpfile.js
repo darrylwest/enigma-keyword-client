@@ -108,7 +108,7 @@ gulp.task('script', function() {
 // create a deploy that minifies the build
 gulp.task('build', [ 'script', 'html', 'compass', 'assets' ]);
 
-gulp.task('watch', function () {
+gulp.task('watch', [ 'test' ], function () {
     gulp.watch([ paths.src, paths.tests ], [ 'test', 'script' ]);
     gulp.watch([ paths.scss, 'app/assets/scss/**/*.scss' ], [ 'compass' ]);
     gulp.watch([ 'app/index.html' ], [ 'html' ]);
