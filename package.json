@@ -16,7 +16,7 @@
     "mock-browser": "^0.90.23",
     "moment": "^2.8.3",
     "numeral": "^1.5.3",
-    "superagent": "^0.18.2",
+    "superagent": "^0.20.0",
     "web-app-runner": "^0.90.41"
   },
   "devDependencies": {
