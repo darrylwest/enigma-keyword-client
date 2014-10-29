@@ -85,7 +85,7 @@ var ViewController = function(options) {
     };
 
     this.configurationHandler = function(conf) {
-        log.info('configuration: ', conf);
+        log.info( 'configuration: ', conf.id );
 
         navView.configure( conf.navigation );
     };
@@ -153,6 +153,10 @@ var ViewController = function(options) {
     // TODO move all access handlers to the challenge view controller
     this.codeRequestHandler = function(value) {
         log.info('code validation request: ', value);
+
+        // find code from session service
+
+
     };
 
     this.accessRequestHandler = function(value) {
@@ -174,7 +178,8 @@ var ViewController = function(options) {
         splashView.hide();
 
         controller.showView( navView );
-        // controller.showView( homeView );
+
+        // switch to home view
         browser.getLocation().hash = 'home';
     };
 
