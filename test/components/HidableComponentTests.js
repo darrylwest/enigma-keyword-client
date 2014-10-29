@@ -13,11 +13,13 @@ describe( 'HidableComponent', function() {
     'use strict';
 
     var document = MockBrowser.createDocument(),
-        element = document.createElement('div'),
+        element,
         createOptions;
 
     createOptions = function() {
         var opts = {};
+
+        element = document.createElement('div');
 
         opts.getElement = function() {
             return element;
