@@ -13,9 +13,6 @@ var should = require('chai').should(),
 describe('AboutView', function() {
     'use strict';
 
-    // just need to create an instance for browser and component builder
-    new MockApplicationFactory();
-
     var createOptions = function() {
         var opts = {};
 

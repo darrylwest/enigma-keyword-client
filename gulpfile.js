@@ -112,7 +112,6 @@ gulp.task('watch', [ 'test' ], function () {
     gulp.watch([ paths.src, paths.tests ], [ 'test', 'script' ]);
     gulp.watch([ paths.scss, 'app/assets/scss/**/*.scss' ], [ 'compass' ]);
     gulp.watch([ 'app/index.html' ], [ 'html' ]);
-    gulp.watch([ paths.src ], [ 'script' ]);
 });
 
 gulp.task('default', [ 'test', 'build' ]);

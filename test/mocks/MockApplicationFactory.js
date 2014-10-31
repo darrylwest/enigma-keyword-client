@@ -12,28 +12,36 @@ var dash = require('lodash'),
     Config = require('../../app/controllers/Config' ),
     ApplicationFactory = require('../../app/controllers/ApplicationFactory');
 
+var mockBrowser = Browser.getInstance( new MockBrowser() ),
+    factory;
+
 var MockApplicationFactory = function(options) {
     'use strict';
+
+    return factory;
 };
 
 MockApplicationFactory.createInstance = function() {
     'use strict';
 
-    // start with a new mock browser instance each time
-    var config = Config.test(),
-        browser = Browser.getInstance( new MockBrowser() ),
-        div = browser.getDocument().createElement( 'div' );
+    if (!factory) {
+        // start with a new mock browser instance each time
+        var config = Config.test(),
+            div = mockBrowser.getDocument().createElement( 'div' );
 
-    div.id = config.parentContainerId;
+        div.id = config.parentContainerId;
 
-    config.createLogger = MockLogger.createLogger;
-    config.agent = new MockAgent();
+        config.createLogger = MockLogger.createLogger;
+        config.agent = new MockAgent();
 
-    var factory = new ApplicationFactory( config );
+        factory = new ApplicationFactory( config );
 
-    factory.initBrowser();
+        factory.initBrowser();
+    }
 
     return factory;
 };
+
+factory = MockApplicationFactory.createInstance();
 
 module.exports = MockApplicationFactory;

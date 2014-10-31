@@ -14,9 +14,6 @@ var should = require('chai').should(),
 describe('NavView', function() {
     'use strict';
 
-    // just need to create an instance for browser and component builder
-    new MockApplicationFactory();
-
     var createOptions = function() {
         var opts = {};
 

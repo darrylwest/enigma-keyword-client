@@ -21,7 +21,6 @@ build:
 	@( gulp build )
 
 watch:
-	@( gulp test )
 	@( gulp watch )
 
 docs:
