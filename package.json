@@ -12,7 +12,7 @@
   "browser": "app.js",
   "dependencies": {
     "faye": "^1.0.3",
-    "lodash": "^2.4.1",
+    "lodash": "^3.0.0",
     "mock-browser": "^0.90.23",
     "moment": "^2.8.3",
     "numeral": "^1.5.3",
