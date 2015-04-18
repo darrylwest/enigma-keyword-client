@@ -95,7 +95,7 @@ gulp.task('assets', function() {
         .pipe( gulp.dest( paths.build ) );
 });
 
-gulp.task('script', function() {
+gulp.task('compile', function() {
     // just the entry point
     gulp.src( 'app/controllers/ApplicationFactory.js' )
         .pipe( plumber({ errorHandler:errorHandler }) )
@@ -106,12 +106,13 @@ gulp.task('script', function() {
 });
 
 // create a deploy that minifies the build
-gulp.task('build', [ 'script', 'html', 'compass', 'assets' ]);
+gulp.task('build', [ 'script', 'compile', 'html', 'compass', 'assets' ]);
 
-gulp.task('watch', [ 'test' ], function () {
-    gulp.watch([ paths.src, paths.tests ], [ 'test', 'script' ]);
+gulp.task('watch', [ 'test', 'html', 'compile', 'compass', 'assets' ], function () {
+    gulp.watch([ paths.src, paths.tests ], [ 'test' ]);
     gulp.watch([ paths.scss, 'app/assets/scss/**/*.scss' ], [ 'compass' ]);
     gulp.watch([ 'app/index.html' ], [ 'html' ]);
+    gulp.watch([ paths.src ], [ 'compile' ]);
 });
 
 gulp.task('default', [ 'test', 'build' ]);
